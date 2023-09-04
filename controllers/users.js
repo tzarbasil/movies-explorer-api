@@ -39,11 +39,9 @@ module.exports.createUser = (req, res, next) => {
       email, password: hash, name,
     }))
     .then((user) => {
-      console.log(user);
       res.status(200).send({ email: user.email, _id: user._id, name: user.name });
     })
     .catch((err) => {
-      console.log(err);
       if (err.name === 'ValidationError') {
         next(
           new BadRequestError(
@@ -70,6 +68,10 @@ module.exports.updateUser = (req, res, next) => {
           new BadRequestError(
             'Переданы некорректные данные',
           ),
+        );
+      } else if (err.code === 11000) {
+        next(
+          new ConflictingError('Пользователь с таким email уже существует'),
         );
       } else {
         next(err);

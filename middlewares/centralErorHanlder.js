@@ -1,4 +1,4 @@
-const error = (err, req, res, next) => {
+const centralErrorHandler = (err, req, res, next) => {
   if (!err.statusCode) {
     res.status(500).send({ message: 'На сервере произошла ошибка' });
   } else {
@@ -7,4 +7,4 @@ const error = (err, req, res, next) => {
   next();
 };
 
-module.exports = error;
+module.exports = centralErrorHandler;

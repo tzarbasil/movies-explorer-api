@@ -42,7 +42,8 @@ const createMovie = (req, res, next) => {
 };
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  const { _id: userId } = req.user;
+  Movie.find({ owner: userId })
     .then((movies) => {
       res.send(movies);
     })
@@ -62,7 +63,7 @@ const deleteMovie = (req, res, next) => {
         );
       }
       return Movie.findByIdAndRemove(movieId)
-        .then(() => res.status(200).send({ message: 'Фильм удалёна' }));
+        .then(() => res.status(200).send({ message: 'Фильм удалён' }));
     })
     .catch(next);
 };

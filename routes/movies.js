@@ -10,7 +10,6 @@
 // DELETE /movies/_id
 
 const router = require('express').Router();
-const { auth } = require('../middlewares/auth');
 const celebrate = require('../middlewares/celebrate');
 
 const {
@@ -18,8 +17,6 @@ const {
   deleteMovie,
   createMovie,
 } = require('../controllers/movies');
-
-router.use(auth);
 
 router.get('/', getMovies);
 router.delete('/:_id', celebrate.validateMovieId, deleteMovie);
