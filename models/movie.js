@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -23,18 +24,24 @@ const movieSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default:
-      'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
+    required: true,
+    validate: {
+      validator: (v) => validator.isURL(v),
+    },
   },
   trailerLink: {
     type: String,
-    default:
-      'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
+    required: true,
+    validate: {
+      validator: (v) => validator.isURL(v),
+    },
   },
   thumbnail: {
     type: String,
-    default:
-      'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
+    required: true,
+    validate: {
+      validator: (v) => validator.isURL(v),
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
