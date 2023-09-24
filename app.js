@@ -13,6 +13,10 @@ const app = express();
 app.use(express.json());
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 
+const { cors } = require('./middlewares/cors');
+
+app.use(cors);
+
 app.use(requestLogger);
 
 app.get('/crash-test', () => {
